@@ -5,11 +5,11 @@ const {
 	validationResult,
 } = require("express-validator")
 
-const validateCreateProducts = [
-	check("title")
+const validateCreateMenu = [
+	check("name")
 		.exists()
 		.notEmpty()
-		.withMessage("El campo title es obligatorio"),
+		.withMessage("The name field is required"),
 	(req, res, next) => {
 		try {
 			validationResult(req).throw()
@@ -49,7 +49,7 @@ const validateGetWithQueryStrings = [
 ]
 
 module.exports = {
-	validateCreateProducts,
+	validateCreateMenu,
 	validateDelete,
 	validateGetWithQueryStrings,
 }

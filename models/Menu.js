@@ -3,14 +3,14 @@ const mongoose = require("mongoose")
 const { model, Schema } = mongoose
 
 
-const productsSchema = new Schema({
+const menuSchema = new Schema({
 	id: String,
 	name: {
 		type: String,
 		required: true,
 	},
 	description: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	imagen: {
@@ -24,7 +24,7 @@ const productsSchema = new Schema({
 },{versionKey:false} ) 
 
 
-productsSchema.index({ name: "text", description: "text", price: "text", imagen: "text",})
+menuSchema.index({ name: "text", description: "text", price: "text", imagen: "text",})
 
 
-module.exports = model("products", productsSchema)
+module.exports = model("menu", menuSchema)

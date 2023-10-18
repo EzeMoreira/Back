@@ -1,10 +1,10 @@
 const uuid = require("uuid")
-const MenuModel = require("../models/products")
+const MenuModel = require("../models/Menu")
 
 
-async function readProducts(_, res) {
+async function readMenues(_, res) {
 	try {
-		await ProductsModel.find().then(response =>
+		await MenuModel.find().then(response =>
 			res.status(200).json(response)
 		)
 	} catch (error) {
@@ -12,11 +12,11 @@ async function readProducts(_, res) {
 	}
 }
 
-async function readProducts(req, res) {
+async function readMenu(req, res) {
 	const { id } = req.params
 
 	try {
-		await ProductsModel.findOne({ id }).then(response =>
+		await MenuModel.findOne({ id }).then(response =>
 			res.status(200).json(response)
 		)
 	} catch (error) {
@@ -24,15 +24,15 @@ async function readProducts(req, res) {
 	}
 }
 
-async function createProducts(req, res) {
-	const { name, imagen, price, description } = req.body
+async function createMenu(req, res) {
+	const { name, imagen, description, price} = req.body
 
-	const data = new ProductsModel({
+	const data = new MenuModel({
 		id: uuid.v4(),
 		name,
 		imagen,
-		price,
 		description,
+		price,
 	})
 
 	data.save()
@@ -42,18 +42,18 @@ async function createProducts(req, res) {
 	})
 }
 
-async function deleteProducts(req, res) {
+async function deleteMenu(req, res) {
 	const { id } = req.params
 
 	try {
 		MenuModel.deleteOne({ id }).then(response => {
 			if (response.deletedCount) {
 				res.status(200).json({
-					message: `El curso con ${id} fue borrado exitosamente.`,
+					message: `The menu with ${id} was successfully deleted.`,
 				})
 			} else {
 				res.status(200).json({
-					message: `No se ha encontrado el curso: ${id}`,
+					message: `Menu not found: ${id}`,
 				})
 			}
 		})
@@ -62,20 +62,20 @@ async function deleteProducts(req, res) {
 	}
 }
 
-async function updateProducts(req, res) {
+async function updateMenu(req, res) {
 	const { id_menu, modify } = req.body
 
 	try {
-		ProductsModel.findOneAndUpdate({ id: id_menu }, modify).then(
+		MenuModel.findOneAndUpdate({ id: id_menu }, modify).then(
 			response => {
 				if (response) {
 					res.status(200).json({
-						message: `El menu con id ${id_menu} fue editado exitosamente.`,
+						message: `The menu with id ${id_menu} was edited successfully.`,
 						data: res.body,
 					})
 				} else {
 					res.status(200).json({
-						message: `No se ha encontrado el menu.`,
+						message: `Menu not found.`,
 					})
 				}
 			}
@@ -85,11 +85,11 @@ async function updateProducts(req, res) {
 	}
 }
 
-async function searchProducts(req, res) {
+async function searchMenues(req, res) {
 	const { q } = req.query
 
 	try {
-		await MenuProducts.find(
+		await MenuModel.find(
 			{
 				$text: { $search: q },
 			},
@@ -107,10 +107,10 @@ async function searchProducts(req, res) {
 }
 
 module.exports = {
-	createProducts,
-	deleteProducts,
-	readProducts,
-	readProducts,
-	searchProducts,
-	updateProducts,
+	createMenu,
+	deleteMenu,
+	readMenu,
+	readMenues,
+	searchMenues,
+	updateMenu,
 }
