@@ -3,7 +3,7 @@ const uuid = require("uuid")
 
 async function createorder  (req,res) {
     try{
-        const {total,datos,items,cantidad, state} =req.body 
+        const {total,datos,items,cantidad} =req.body 
 
         const data = new OrdersModel({
 			      id : uuid.v4(),
@@ -23,7 +23,7 @@ async function createorder  (req,res) {
           });
     }   catch (error){
         res.status(400).json({
-          message: "Error creating order",
+          message: "Error al crear la orden",
           error: error.message
         })
     }
@@ -46,12 +46,12 @@ async function updateOrders(req, res) {
 			response => {
 				if (response.id) {
 					res.status(200).json({
-						message: `The command with id ${response.id} was edited successfully.`,
+						message: `La orden con id ${response.id} fue editado exitosamente.`,
 						data: res.body,
 					})
 				} else {
 					res.status(200).json({
-						message: `The order has not been found.`,
+						message: `No se ha encontrado la orden.`,
 					})
 				}
 			}
@@ -66,7 +66,7 @@ async function updateOrders(req, res) {
     try {
       const updatedOrder = await OrdersModel.findByIdAndUpdate(
         orderId,
-        { estado: "Enviado" },
+        { state: "sent" },
         { new: true }
       );
   
@@ -81,7 +81,7 @@ async function updateOrders(req, res) {
   }
   const deleteAllOrders = async (req, res) => {
 	try {
-		await OrdersModel.deleteMany({ estado: "Enviado" });
+		await OrdersModel.deleteMany({ state: "sent" });
 
 		res.status(200).json({ message: "All submitted orders have been deleted" });
 	} catch (error) {
