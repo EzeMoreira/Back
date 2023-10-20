@@ -8,11 +8,11 @@ async function deleteUser(req,res){
         UserModel.deleteOne({id}).then(response => {
             if (response.deletedCount){
                 res.status(200).json({
-                    message:`El documento con ${id} fue borrado existosamente`,
+                    message:`The document with ${id} was successfully deleted`,
                 })
             }else{
                 res.status(200).json({
-                    message:`No se ha encontrado el documento : ${id}`,
+                    message:`Document not found: ${id}`,
                 })
             }
         })
@@ -29,12 +29,12 @@ async function updateUser(req,res){
             response => {
                 if(response.id){
                     res.status(200).json({
-                        message:`El documento con id ${response.id} se editadó exitosamente`,
+                        message:`The document with id ${response.id} was edited successfully`,
                         data : res.body
                     })
                 }else{
                     res.status(200).json({
-                        message:`No se ha encontrado el documento`,
+                        message:`Document not found`,
                     })
                 }
             }
