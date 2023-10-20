@@ -28,7 +28,7 @@ const {
 
 const { login } = require("../controllers/auth")
 const { verifyToken } = require("../middlewares/verifyToken")
-const { verifyIsAdmin } = require("../middlewares/VerifyIsAdmin")
+const { verifyIsAdmin } = require("../middlewares/verifyIsAdmin")
 
 const {
     validateCreate,
